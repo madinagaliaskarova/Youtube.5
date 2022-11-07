@@ -1,6 +1,7 @@
-package com.example.youtube.data.remote
+package com.example.youtube.core.remote
 
 import com.example.youtube.BuildConfig.BASE_URL
+import com.example.youtube.data.remote.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -20,9 +21,9 @@ class RetrofitClient {
             //например если нет интернета через 20 секунд выпадет ошибка что не подсоединился интернет
             //проверка на интернет подключение и скорость
             val okHttpClient = OkHttpClient.Builder()
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .connectTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(20, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
                 .build()
 

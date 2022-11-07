@@ -7,7 +7,14 @@ import com.bumptech.glide.Glide
 import com.example.youtube.data.models.Playlist
 import com.example.youtube.databinding.ItemPlaylistBinding
 
-class PlaylistsAdapter(private val onClick: (id: String) -> Unit) :
+class PlaylistsAdapter(
+    private val onClick: (
+        id: String,
+        title: String,
+        description: String,
+        videoCount: Int
+    ) -> Unit
+) :
     RecyclerView.Adapter<PlaylistsAdapter.PlaylistsViewHolder>() {
     private val data = mutableListOf<Playlist>()
 
@@ -39,7 +46,12 @@ class PlaylistsAdapter(private val onClick: (id: String) -> Unit) :
             txtTitle.text = playlist.snippet.title
             textviewVideoCount.text = "${playlist.contentDetails.itemCount} video series"
             root.setOnClickListener {
-                onClick(data[adapterPosition].id)
+                onClick(
+                    data[adapterPosition].id,
+                    data[adapterPosition].snippet.title,
+                    data[adapterPosition].snippet.description,
+                    data[adapterPosition].contentDetails.itemCount
+                )
             }
         }
     }

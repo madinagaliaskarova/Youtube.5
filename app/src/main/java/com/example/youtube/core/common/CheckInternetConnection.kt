@@ -1,4 +1,4 @@
-package com.example.youtube.utils
+package com.example.youtube.core.common
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -8,6 +8,7 @@ import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
 
 class InternetConnectivityManager(context: Context) : LiveData<Boolean>() {
+
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
@@ -34,16 +35,13 @@ class InternetConnectivityManager(context: Context) : LiveData<Boolean>() {
             postValue(false)
         }
 
-        val networkRequest = NetworkRequest.Builder().apply {
+        connectivityManager.registerNetworkCallback(NetworkRequest.Builder().apply {
             addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             addCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
             addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
             addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
             addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
-        }.build()
-        connectivityManager.registerNetworkCallback(
-            networkRequest, networkCallbacks
-        )
+        }.build(), networkCallbacks)
     }
 
     override fun onActive() {

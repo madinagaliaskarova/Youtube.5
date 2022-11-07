@@ -1,5 +1,6 @@
 package com.example.youtube.data.remote
 
+import com.example.youtube.data.models.Playlist
 import com.example.youtube.data.models.Playlists
 import retrofit2.Call
 import retrofit2.http.GET
@@ -11,6 +12,13 @@ interface ApiService {
         @Query("channelId") channelId: String,
         @Query("part") part: String,
         @Query("key") apiKey: String,
+    ): Call<Playlists>
+
+    @GET("playlistItems")
+    fun getPlaylistItem(
+        @Query("part") part: String,
+        @Query("key") apiKey: String,
+        @Query("playlistId") playlistId: String,
     ): Call<Playlists>
 }
 /*
